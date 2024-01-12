@@ -1,0 +1,7 @@
+{{
+  reportData {{
+    report(code: "{report_code}") {{
+      rankings(difficulty:{difficulty}, compare: Rankings, playerMetric: {player_metric})
+    }}
+  }}
+}}

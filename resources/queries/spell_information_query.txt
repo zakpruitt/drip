@@ -1,0 +1,9 @@
+{{
+  gameData {{
+		ability(id: {spell_id}) {{
+			id
+			icon
+			name
+		}}
+	}}
+}}

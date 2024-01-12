@@ -1,0 +1,13 @@
+{{
+	reportData {{
+		 report(code: "{report_code}") {{
+				masterData {{
+					actors(type: "Player") {{
+						id
+						name
+						type
+					}}
+				}}
+		}}
+	}}
+}}

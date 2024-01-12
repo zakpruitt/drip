@@ -1,0 +1,9 @@
+{{
+	reportData {{
+		 report(code: "{report_code}") {{
+			fights(killType: Kills) {{
+				id
+			}}
+		}}
+	}}
+}}
