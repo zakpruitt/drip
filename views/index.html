@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Table Dark Mode</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* You can define custom colors in your Tailwind CSS */
+    .goblin {
+      background-color: #3D9970; /* Adjust the goblin/sage color as needed */
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+<div class="flex flex-col items-center justify-center min-h-screen">
+  <div class="w-full max-w-md px-2">
+    <div class="mb-6">
+      <label for="report-code" class="block text-gray-300 text-lg font-bold mb-2">Report Code</label>
+      <div class="flex">
+        <input id="report-code" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter your code">
+        <button class="ml-4 goblin hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Go
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full max-w-4xl mt-6">
+    <div class="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <table class="table-auto w-full mb-6">
+  <thead>
+    <tr class="bg-gray-700">
+      <th class="border border-r-3 px-4 py-2">Player</th>
+      <th class="border border-r-2 px-4 py-2" colspan="3">Gnarlroot</th>
+      <th class="border px-4 py-2" colspan="3">Overall</th>
+    </tr>
+    <tr class="bg-gray-600">
+      <th class="border border-r-2 px-4 py-2"></th> <!-- Empty cell for alignment with thicker right border -->
+      <th class="border px-4 py-2">DPS</th>
+      <th class="border px-4 py-2">HPS</th>
+      <th class="border border-r-2 px-4 py-2">BDPS</th> <!-- Thicker right border for the last cell in the group -->
+      <th class="border px-4 py-2">DPS</th>
+      <th class="border px-4 py-2">HPS</th>
+      <th class="border border-r-2 px-4 py-2">BDPS</th> <!-- Thicker right border for the last cell in the group -->
+      <th class="border px-4 py-2">DPS</th>
+      <th class="border px-4 py-2">HPS</th>
+      <th class="border px-4 py-2">BDPS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="border border-r-2 px-4 py-2">Player Name</td> <!-- Thicker right border for the player cell -->
+      <td class="border px-4 py-2">...</td>
+      <td class="border px-4 py-2">...</td>
+      <td class="border border-r-2 px-4 py-2">...</td> <!-- Thicker right border for the last cell in the group -->
+      <td class="border px-4 py-2">...</td>
+      <td class="border px-4 py-2">...</td>
+      <td class="border border-r-2 px-4 py-2">...</td> <!-- Thicker right border for the last cell in the group -->
+      <td class="border px-4 py-2">...</td>
+      <td class="border px-4 py-2">...</td>
+      <td class="border px-4 py-2">...</td>
+    </tr>
+    <!-- More rows... -->
+  </tbody>
+</table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

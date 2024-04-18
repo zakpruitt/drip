@@ -1,57 +1,37 @@
-from dataclasses import dataclass
-from enum import Enum
-
 import gspread
+from gspread_formatting import *
 from oauth2client.service_account import ServiceAccountCredentials
-
-from warcraft_logs_api import WarcraftLogsAPI
-
-
-
-
-# now write it
-
-def flatten_data(processed_reclear_data):
-    flattened_data = []
-    for boss_name, performances in processed_reclear_data.items():
-        for performance_type in PerformanceType:
-            for performance in performances[performance_type]:
-                row = {
-                    'Boss Name': boss_name,
-                    'Player Name': performance.name,
-                    'Spec': performance.player_spec,
-                    'Performance Type': performance_type.name,
-                    'Rank Percent': performance.rank_percent,
-                    'Amount': performance.amount
-                }
-                flattened_data.append(row)
-    return flattened_data
-
-
-# Flattening your data
-flattened_data = flatten_data(processed_reclear_data)
 
 # Google Sheets setup
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('resources/credentials.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('./resources/credentials.json', scope)
 client = gspread.authorize(creds)
-sheet = client.open('drip').sheet1
+worksheet = client.open('drip').sheet1
 
-# Prepare data for batch update
-header = ['Boss Name', 'Player Name', 'Spec', 'Performance Type', 'Rank Percent', 'Amount']
-data_to_write = [header]
-for row in flattened_data:
-    data_to_write.append([
-        row['Boss Name'],
-        row['Player Name'],
-        row['Spec'],
-        row['Performance Type'],
-        row['Rank Percent'],
-        row['Amount']
-    ])
+## fill in data ##
+bosses = ["Gnarlroot", "Another Boss", "Overall"]
+sub_headers = ["DPS", "HPS", "BDPS"]
 
-# Define the range to update
-range_to_update = f"A1:F{len(data_to_write)}"  # Adjust the range as needed
+current_column = 2
+for boss in bosses:
+    end_column = current_column + len(sub_headers) - 1
 
-# Batch update the sheet
-sheet.update(range_to_update, data_to_write, value_input_option='USER_ENTERED')
+    # Use 'merge_cells' function with the correct parameters
+    worksheet.merge_cells(start_row=1, start_col=current_column, end_row=1, end_col=end_column)
+
+    # Update 'update_cell' to 'update' with named arguments
+    worksheet.update(cell='A1', value='Player Name')
+
+    for i, sub_header in enumerate(sub_headers):
+        cell = gspread.utils.rowcol_to_a1(2, current_column + i)
+        worksheet.update(cell, sub_header)
+
+    current_column = end_column + 1
+
+
+worksheet.update("Player Name", 'A1')
+
+# Apply formatting, for example, a bold format for the headers
+header_format = CellFormat(textFormat=TextFormat(bold=True))
+set_frozen(worksheet, rows=1, cols=1)  # Freeze the first row and column
+format_cell_ranges(worksheet, [('A1', header_format), ('B1:1', header_format)])
